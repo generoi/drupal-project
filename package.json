@@ -1,0 +1,24 @@
+{
+  "name": "<example-project>",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "http://www.<example-project>.fi",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd web/themes/custom/<example-project>/; gulp jshint",
+    "update": "bundle && composer install && (cd web/themes/custom/<example-project>/; npm install && bower install)",
+    "build": "cd web/themes/custom/<example-project>/; gulp --production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:generoi/<example-project>.git"
+  },
+  "authors": [
+    "Christoffer Björkskog <christoffer@genero.fi>",
+    "Oskar Schöldström <oskar@genero.fi>"
+  ],
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/generoi/<example-project>/issues"
+  }
+}
