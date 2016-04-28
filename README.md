@@ -1,6 +1,6 @@
-# Composer template for Drupal projects
+# <example-project>
 
-[![Build Status](https://travis-ci.org/drupal-composer/drupal-project.svg?branch=8.x)](https://travis-ci.org/drupal-composer/drupal-project)
+> **Note, here's a [diff of commits availabe upstream](https://github.com/generoi/drupal-project/compare/genero...drupal-composer:8.x)**
 
 This project template should provide a kickstart for managing your site
 dependencies with [Composer](https://getcomposer.org/).
@@ -8,6 +8,98 @@ dependencies with [Composer](https://getcomposer.org/).
 If you want to know how to use it as replacement for
 [Drush Make](https://github.com/drush-ops/drush/blob/master/docs/make.md) visit
 the [Documentation on drupal.org](https://www.drupal.org/node/2471553).
+
+## Installation
+
+### Local development
+
+    git clone --recursive git@github.com:generoi/<example-project>.git <example-project>
+    cd <example-project>
+
+    # Setup git hooks
+    ./lib/git-hooks/install.sh
+
+    # Install dependencies
+    bundle
+    composer install
+
+    # Setup the ENV variables (pre-configured for the VM)
+    cp .env.example .env
+
+    # Setup the VM folder
+    make vm
+
+    # Fetch ansible roles used by Drupal VM
+    sudo ansible-galaxy install -r lib/drupal-vm/provisioning/requirements.yml --force
+
+    # Build the VM
+    vagrant up --provision
+
+    # To sync files from your computer to the virtual machine, run
+    vagrant rsync-auto
+
+    # Install theme dependencies
+    # If npm install fails, make sure you have the lastest node and npm installed
+    cd web/sites/themes/custom/example
+    npm install
+    bower install
+
+## Setup a new repository
+
+1. Clone the repo - `git clone --recursive git@github.com:generoi/drupal-project.git foobar`
+2. Setup git hooks `./lib/git-hooks/install.sh`
+3. Install dependencies `bundle; composer install`
+4. Rename everything (relies on your theme being named the same as the repository)
+
+    ```sh
+    # Search and replace all references to the project
+    find . -type f -print0 | xargs -0 sed -i 's/<example-project>/foobar/g'
+
+    # You need to manually setup the production host in:
+    # - `.env.example`
+    # - `config/deploy/production.rb`
+    # - `config/deploy/staging.rb`
+    ```
+5. Setup the ENV variables (pre-configured for the VM) `cp .env.example .env`
+6. Configure the correct build tasks in `package.json`.
+
+7. Setup the new remote git repository
+
+    ```sh
+    # Remove the existing master branch
+    git branch -D master
+
+    # Switch to a new master branch for this project
+    git checkout -b master
+
+    # Create a new repository on github
+    open https://github.com/organizations/generoi/repositories/new
+
+    # Set origin url to to the newly created github repository
+    git remote set-url origin git@github.com:generoi/<example-project>.git
+
+    # Push the code
+    git push -u origin master
+    ```
+
+7. Setup the VM
+
+    ```sh
+    # Change the VM IP to something unique
+    vim config/drupal-vm.config.yml
+
+    # Setup the VM directory
+    make vm
+
+    # Fetch ansible roles used by Drupal VM
+    sudo ansible-galaxy install -r lib/drupal-vm/provisioning/requirements.yml --force
+
+    # Build the VM
+    vagrant up --provision
+
+    # To sync files from your computer to the virtual machine, run
+    vagrant rsync-auto
+    ```
 
 ## Usage
 
