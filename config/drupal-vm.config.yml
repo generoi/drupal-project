@@ -27,16 +27,12 @@ vagrant_synced_folders:
     id: drupal
     type: rsync
     create: true
-    excluded_paths: [
-      '.git/', './vm/', './lib/', '.tmp/', 'node_modules/',
-      'sites/default/files/',
-    ]
+    excluded_paths: ['.git/', '.tmp/', 'node_modules/', 'sites/default/files/']
     options_override:
       rsync__chown: false
       rsync__verbose: true
       rsync__args: [
         "--verbose", "--archive", "--delete",
-        "--chmod=Dgu=rwx,Do=rx,Fgu=rw,Fo=r", # 664 for files, 775 for directories
         "--owner", "--group", # required for the following command
         "--usermap=*:vagrant", "--groupmap=*:www-data,*:apache",
       ]
@@ -209,7 +205,7 @@ ruby_install_gems: []
 # You can configure almost anything else on the server in the rest of this file.
 extra_security_enabled: false
 
-drush_version: "master"
+drush_version: "8.1.0"
 drush_keep_updated: true
 drush_composer_cli_options: "--prefer-dist --no-interaction"
 

@@ -22,6 +22,7 @@
         "vlucas/phpdotenv": "^2.0.1",
         "oscarotero/env": "^1.0",
         "drupal/core": "~8.0",
+        "drush/drush": "~8.1",
         "drupal/console": "~0.10"
     },
     "require-dev": {
