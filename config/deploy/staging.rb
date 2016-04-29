@@ -1,16 +1,15 @@
-set :stage, :staging
+environments = YAML.load_file("#{File.dirname(__dir__)}/environments.yml")
 
-set :app_url,       "http://<example-project>.web.staging.minasanor.genero.fi"
-set :deploy_to,     "/var/www/staging/<example-project>"
+set :stage,     :staging
+set :user,      environments["#{fetch(:stage)}_user"]
+set :group,     environments["#{fetch(:stage)}_user"]
+set :app_url,   'http://' + environments["#{fetch(:stage)}_uri"]
+set :deploy_to, environments["#{fetch(:stage)}_deploy_path"]
 
-# Simple Role Syntax
-# ==================
-# Supports bulk-adding hosts to roles, the primary
-# server in each group is considered to be the first
-# unless any hosts have the primary property set.
-role :app, %w{deploy@minasanor.genero.fi}
-role :web, %w{deploy@minasanor.genero.fi}
-role :db,  %w{deploy@minasanor.genero.fi}
+host = fetch(:user) + '@' + environments["#{fetch(:stage)}_host"]
+role :app, [host]
+role :web, [host]
+role :db,  [host]
 
 set :ssh_options, {
   forward_agent: true

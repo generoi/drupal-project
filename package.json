@@ -9,6 +9,13 @@
     "update": "bundle && composer install && (cd web/themes/custom/<example-project>/; npm install && bower install)",
     "build": "cd web/themes/custom/<example-project>/; gulp --production"
   },
+  "config": {
+    "theme": "web/themes/custom/<example-project>",
+    "assets": [
+      "web/themes/custom/<example-project>/dist",
+      "web/themes/custom/<example-project>/bower_components"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:generoi/<example-project>.git"

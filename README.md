@@ -55,14 +55,11 @@ the [Documentation on drupal.org](https://www.drupal.org/node/2471553).
     # Search and replace all references to the project
     find . -type f -print0 | xargs -0 sed -i 's/<example-project>/foobar/g'
 
-    # You need to manually setup the production host in:
-    # - `.env.example`
-    # - `config/deploy/production.rb`
-    # - `config/deploy/staging.rb`
+    # You need to manually setup the remote environment hosts in:
+    # - `config/environments.yml`
     ```
 5. Setup the ENV variables (pre-configured for the VM) `cp .env.example .env`
-6. Configure the correct build tasks in `package.json`.
-
+6. Configure the correct build tasks, application name, and repo path in `package.json`.
 7. Setup the new remote git repository
 
     ```sh
@@ -82,7 +79,7 @@ the [Documentation on drupal.org](https://www.drupal.org/node/2471553).
     git push -u origin master
     ```
 
-7. Setup the VM
+8. Setup the VM
 
     ```sh
     # Change the VM IP to something unique

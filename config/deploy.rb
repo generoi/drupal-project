@@ -1,69 +1,71 @@
-set :application,   '<example-project>'
-set :repo_url,      'git@github.com:generoi/<example-project>.git'
-set :branch,        'master'
+package = JSON.parse(File.read('package.json'))
 
-set :user,          'deploy'
-set :group,         'deploy'
+set :application,    package['name']
+set :repo_url,       package['repository']['url']
+set :branch,         package['config']['branch'] || 'master'
+set :theme,          package['config']['theme']
 
 # Root directory where backups will be placed.
-set :backup_dir,    -> { "#{fetch(:deploy_to)}/backup" }
+set :backup_dir,     -> { "#{fetch(:deploy_to)}/backup" }
 # Backup directories, currently only DB is suppored by drush.rake
-set :backup_dirs,   %w[db]
-set :log_level,     :info
-set :pty,           true
+set :backup_dirs,    %w[db]
 
-# @NOTE this is not used anymore as development is done on local machines.
-# Location where shared files reside on the development machine.
-# This will be appended to :shared_settings and :shared_uploads
-# set :shared_local_dir,  "/var/www/shared/#{fetch(:application)}"
-set :shared_settings,   "sites/default/settings.local.php"
-# set :shared_uploads,    "sites/default/files"
+# Debugging
+set :log_level,      :info
+set :pty,            true
 
-# Symlink these paths.
-set :linked_files,      ["sites/default/settings.local.php", ".htaccess"]
-set :linked_dirs,       ["sites/default/files"]
+# Symlink the following paths from outside the git repository
+set :linked_files,   fetch(:linked_files, []).push('.env', 'web/sites/default/settings.local.php')
+set :linked_dirs,    fetch(:linked_dirs, []).push('web/sites/default/files')
+
+# Rsync the locally compiled assets.
+set :assets_compile, 'npm run-script build'
+set :assets_output,  package['config']['assets']
 
 # Flags used by logs-tasks
-set :tail_options,            "-n 100 -f"
-set :rsync_options,           "--recursive --times --compress --human-readable --progress"
+set :tail_options,   '-n 100 -f'
+set :rsync_options,  '--recursive --times --compress --human-readable --progress'
 
-set :drush_cmd,               "drush"
-
-# Cache tables should be set as structure tables in drushrc.php so that their
-# data will be skipped from dumps.
-# $options['structure-tables']['common'] = array('cache', 'cache_*', 'history', 'search_*', 'sessions', 'watchdog');
-set :drush_sql_dump_options,  "--structure-tables-list=cache,cache_*,history,search_*,sessions,watchdog --gzip"
-
-set :varnish_cmd,             "/usr/bin/varnishadm -S /etc/varnish/secret"
-set :varnish_address,         "127.0.0.1:6082"
-set :varnish_ban_pattern,     "req.url ~ ^/"
-
-set :assets_compile,          "gulp build --production"
-set :assets_output,           %w[web/themes/custom/<example-project>/dist web/themes/custom/<example-project>/bower_components]
+# Other software options.
+set :drush_cmd,               'drush'
+set :drush_sql_dump_options,  '--structure-tables-list=cache,cache_*,history,search_*,sessions,watchdog --gzip'
+set :varnish_cmd,             '/usr/bin/varnishadm -S /etc/varnish/secret'
+set :varnish_address,         '127.0.0.1:6082'
+set :varnish_ban_pattern,     'req.url ~ ^/'
 
 # Slackistrano (change to true)
-set :slack_run_starting,     -> { false }
-set :slack_run_finishing,    -> { false }
-set :slack_run_failed,       -> { false }
+set :slack_run_starting,      -> { false }
+set :slack_run_finishing,     -> { false }
+set :slack_run_failed,        -> { false }
 # Add an incoming webhook at https://<team>.slack.com/services/new/incoming-webhook
-# set :slack_webhook, "https://hooks.slack.com/services/XXX/XXX/XXX"
+# set :slack_webhook, 'https://hooks.slack.com/services/XXX/XXX/XXX'
 
 namespace :deploy do
   after :restart, :cache_clear do end
 
-  after :finishing, :drupal_online do
-    invoke "drush:site_offline"
-    invoke "assets:push"
-    invoke "drush:backupdb" if fetch(:stage) == :production
-    invoke "cache:apc" if fetch(:stage) == :production
-    invoke "cache:all"
-    invoke "drush:updatedb"
-    invoke "drush:site_online"
-    # invoke "cache:varnish" if fetch(:stage) == :production
+  before :starting, :check do
+    invoke 'deploy:check:pushed'
+    invoke 'deploy:check:assets'
+    invoke 'deploy:check:sshagent'
   end
 
-  after :rollback, 'cache'
-  before :starting, 'deploy:check:pushed'
-  before :starting, 'deploy:check:assets'
-  before :starting, 'deploy:check:sshagent'
+  before :updated, 'composer:install'
+
+  after :updated, :drupal_online do
+    invoke 'assets:push'
+    invoke 'drush:site_offline'
+    invoke 'drush:backupdb' if fetch(:stage) == :production
+    invoke 'cache:apc' if fetch(:stage) == :production
+    invoke 'cache:all'
+    invoke 'drush:updatedb'
+    invoke 'drush:site_online'
+    # invoke 'cache:varnish' if fetch(:stage) == :production
+  end
+
+  after :reverted, :cache_clear do
+    invoke 'cache:apc' if fetch(:stage) == :production
+    invoke 'cache:all'
+    # invoke 'cache:varnish' if fetch(:stage) == :production
+  end
+
 end

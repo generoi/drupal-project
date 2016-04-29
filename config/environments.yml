@@ -1,8 +1,9 @@
 ---
 production_uri: <example-project>.fi
-production_root: /var/www/drupal/web
+production_root: /var/www/drupal/current/web
 production_host: <example-project>.fi
 production_user: deploy
+production_deploy_path: /var/www/drupal
 
 development_uri: <example-project>.dev
 development_root: /var/www/drupal/web
@@ -10,6 +11,7 @@ development_host: <example-project>.dev
 development_user: vagrant
 
 staging_uri: <example-project>.staging.minasanor.genero.fi
-staging_root: /home/www/staging/<example-project>/current
+staging_root: /var/www/staging/<example-project>/current/web
 staging_host: minasanor.genero.fi
 staging_user: deploy
+staging_deploy_path: /var/www/staging/<example-project>
