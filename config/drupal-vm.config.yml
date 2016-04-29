@@ -27,7 +27,7 @@ vagrant_synced_folders:
     id: drupal
     type: rsync
     create: true
-    excluded_paths: ['.git/', '.tmp/', 'node_modules/', 'sites/default/files/']
+    excluded_paths: ['.git/', '.tmp/', 'node_modules/', 'sites/default/files/', 'config/drupal']
     options_override:
       rsync__chown: false
       rsync__verbose: true
@@ -36,6 +36,11 @@ vagrant_synced_folders:
         "--owner", "--group", # required for the following command
         "--usermap=*:vagrant", "--groupmap=*:www-data,*:apache",
       ]
+  # Use slower but two-way NFS sync for configuration sync directory.
+  - local_path: config/drupal
+    destination: /var/www/drupal/config/drupal
+    type: nfs
+    create: true
 
 # Memory and CPU to use for this VM.
 vagrant_memory: 1024
