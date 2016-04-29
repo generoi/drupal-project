@@ -68,6 +68,16 @@ if (file_exists($root_dir . '/.env')) {
 }
 
 /**
+ * Read the defined drush environments from configuration file.
+ */
+$environments = array();
+$environments_file = $root_dir . '/config/environments.yml';
+if (file_exists($environments_file)) {
+  $contents = file_get_contents($environments_file);
+  $environments = Symfony\Component\Yaml\Yaml::parse($contents);
+}
+
+/**
  * Database settings:
  *
  * The $databases array specifies the database connection or
@@ -725,6 +735,16 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * will allow the site to run off of all variants of example.com and
  * example.org, with all subdomains included.
  */
+$settings['trusted_host_patterns'] = array(
+  '^localhost$',
+);
+foreach (array('production_uri', 'staging_uri', 'development_uri') as $key) {
+  if (!empty($environments[$key])) {
+    $host = preg_quote($environments[$key]);
+    $settings['trusted_host_patterns'][] = '^' . $host . '$';
+    $settings['trusted_host_patterns'][] = '^.+\.' . $host . '$';
+  }
+}
 
 /**
  * Set up our global environment constant and load its config first

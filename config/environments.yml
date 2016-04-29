@@ -1,15 +1,15 @@
 ---
-DRUSH_PRODUCTION_URI: <example-project>.fi
-DRUSH_PRODUCTION_ROOT: /var/www/drupal/web
-DRUSH_PRODUCTION_HOST: <example-project>.fi
-DRUSH_PRODUCTION_USER: deploy
+production_uri: <example-project>.fi
+production_root: /var/www/drupal/web
+production_host: <example-project>.fi
+production_user: deploy
 
-DRUSH_DEVELOPMENT_URI: <example-project>.dev
-DRUSH_DEVELOPMENT_ROOT: /var/www/drupal/web
-DRUSH_DEVELOPMENT_HOST: <example-project>.dev
-DRUSH_DEVELOPMENT_USER: vagrant
+development_uri: <example-project>.dev
+development_root: /var/www/drupal/web
+development_host: <example-project>.dev
+development_user: vagrant
 
-DRUSH_STAGING_URI: <example-project>.staging.minasanor.genero.fi
-DRUSH_STAGING_ROOT: /home/www/staging/<example-project>/current
-DRUSH_STAGING_HOST: minasanor.genero.fi
-DRUSH_STAGING_USER: deploy
+staging_uri: <example-project>.staging.minasanor.genero.fi
+staging_root: /home/www/staging/<example-project>/current
+staging_host: minasanor.genero.fi
+staging_user: deploy
