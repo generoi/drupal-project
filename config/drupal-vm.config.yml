@@ -255,6 +255,7 @@ composer_global_packages:
 # `provisioning/playbook.yml` file.
 post_provision_scripts:
   - "../../lib/genero-conf/post-provisioning/dotfiles.sh"
+  - "../../lib/genero-conf/post-provisioning/drupal.sh"
   # - "../examples/scripts/configure-solr.sh"
 
 # MySQL Configuration.
