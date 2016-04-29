@@ -21,18 +21,18 @@ $environments = Symfony\Component\Yaml\Yaml::parse($contents);
  * Ensure all configuration values are present or else exit.
  */
 $required = [
-  'DRUSH_DEVELOPMENT_URI',
-  'DRUSH_DEVELOPMENT_ROOT',
-  'DRUSH_DEVELOPMENT_HOST',
-  'DRUSH_DEVELOPMENT_USER',
-  'DRUSH_PRODUCTION_URI',
-  'DRUSH_PRODUCTION_ROOT',
-  'DRUSH_PRODUCTION_HOST',
-  'DRUSH_PRODUCTION_USER',
-  'DRUSH_STAGING_URI',
-  'DRUSH_STAGING_ROOT',
-  'DRUSH_STAGING_HOST',
-  'DRUSH_STAGING_USER'
+  'development_uri',
+  'development_root',
+  'development_host',
+  'development_user',
+  'production_uri',
+  'production_root',
+  'production_host',
+  'production_user',
+  'staging_uri',
+  'staging_root',
+  'staging_host',
+  'staging_user'
 ];
 $missing = array_diff($required, array_keys($environments));
 if (!empty($missing)) {
@@ -43,12 +43,12 @@ if (!empty($missing)) {
 /**
  * Determine which host we are on.
  */
-switch ($environments['DRUSH_ENV']) {
+switch ($environments['env']) {
   case 'local':
   case 'production':
   case 'development':
   case 'staging':
-    $env = $environments['DRUSH_ENV'];
+    $env = $environments['env'];
     break;
   default:
     exec('hostname', $hostname);
@@ -93,8 +93,8 @@ $base_options = array(
 
 // The locally installed virtual machine.
 $aliases['dev'] = $base_options + array(
-  'uri' => $environments['DRUSH_DEVELOPMENT_URI'],
-  'root' => $environments['DRUSH_DEVELOPMENT_ROOT'],
+  'uri' => $environments['development_uri'],
+  'root' => $environments['development_root'],
 
   'target-command-specific' => array(
     'sql-sync' => array(
@@ -105,7 +105,7 @@ $aliases['dev'] = $base_options + array(
       'no-ordered-dump' => TRUE,
       'structure-tables-list' => implode(',', $structure_tables),
       # Reset the admin users password.
-      'reset-admin-password' => $environments['DRUSH_DEVELOPMENT_ADMIN_PASS'] ?: 'drupal',
+      'reset-admin-password' => $environments['development_admin_pass'] ?: 'drupal',
       # Obscure user email addresses and reset passwords.
       'sanitize' => TRUE,
       'confirm-sanitizations' => TRUE,
@@ -123,8 +123,8 @@ if ($env == 'local') {
   }
 
   $aliases['dev'] += array(
-    'remote-host' => $environments['DRUSH_DEVELOPMENT_HOST'],
-    'remote-user' => $environments['DRUSH_DEVELOPMENT_USER'],
+    'remote-host' => $environments['development_host'],
+    'remote-user' => $environments['development_user'],
     // rsync doesn't expand ~
     'ssh-options' => '-o ForwardAgent=yes -o PasswordAuthentication=no -i ' . $_SERVER['HOME'] . '/.vagrant.d/insecure_private_key',
   );
@@ -133,10 +133,10 @@ if ($env == 'local') {
 
 // The staging enviornment available on minasanor.
 $aliases['staging'] = $base_options + array(
-  'uri' => $environments['DRUSH_STAGING_URI'],
-  'root' => $environments['DRUSH_STAGING_ROOT'],
-  'remote-host' => $environments['DRUSH_STAGING_HOST'],
-  'remote-user' => $environments['DRUSH_STAGING_USER'],
+  'uri' => $environments['staging_uri'],
+  'root' => $environments['staging_root'],
+  'remote-host' => $environments['staging_host'],
+  'remote-user' => $environments['staging_user'],
   'ssh-options' => '-o ForwardAgent=yes',
 
   'target-command-specific' => array(
@@ -150,10 +150,10 @@ $aliases['staging'] = $base_options + array(
 
 // The production environment.
 $aliases['production'] = $base_options + array(
-  'uri' =>         $environments['DRUSH_PRODUCTION_URI'],
-  'root' =>        $environments['DRUSH_PRODUCTION_ROOT'],
-  'remote-host' => $environments['DRUSH_PRODUCTION_HOST'],
-  'remote-user' => $environments['DRUSH_PRODUCTION_USER'],
+  'uri' => $environments['production_uri'],
+  'root' => $environments['production_root'],
+  'remote-host' => $environments['production_host'],
+  'remote-user' => $environments['production_user'],
   'ssh-options' => '-o ForwardAgent=yes',
   // Prevent accidental writes to production environment.
   'target-command-specific' => array(
