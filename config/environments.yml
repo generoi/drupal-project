@@ -1,0 +1,15 @@
+---
+DRUSH_PRODUCTION_URI: <example-project>.fi
+DRUSH_PRODUCTION_ROOT: /var/www/drupal/web
+DRUSH_PRODUCTION_HOST: <example-project>.fi
+DRUSH_PRODUCTION_USER: deploy
+
+DRUSH_DEVELOPMENT_URI: <example-project>.dev
+DRUSH_DEVELOPMENT_ROOT: /var/www/drupal/web
+DRUSH_DEVELOPMENT_HOST: <example-project>.dev
+DRUSH_DEVELOPMENT_USER: vagrant
+
+DRUSH_STAGING_URI: <example-project>.staging.minasanor.genero.fi
+DRUSH_STAGING_ROOT: /home/www/staging/<example-project>/current
+DRUSH_STAGING_HOST: minasanor.genero.fi
+DRUSH_STAGING_USER: deploy
