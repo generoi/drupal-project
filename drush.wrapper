@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd "`dirname $0`"
+
+# Only list local aliases and load the ones in drush/
+vendor/bin/drush.launcher --local --alias-path=${DIR}/drush "$@"
