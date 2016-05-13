@@ -52,7 +52,7 @@ drupalvm_webserver: apache
 # Set this to false if you are using a different site deployment strategy and
 # would like to configure 'vagrant_synced_folders' and 'apache_vhosts' manually.
 build_makefile: false
-drush_makefile_path: ../../drupal.make.yml
+drush_makefile_path: ../../../../drupal.make.yml
 
 # Set this to false if you don't need to install drupal (using the drupal_*
 # settings below), but instead copy down a database (e.g. using drush sql-sync).
@@ -259,8 +259,8 @@ composer_global_packages:
 # Run specified scripts after VM is provisioned. Path is relative to the
 # `provisioning/playbook.yml` file.
 post_provision_scripts:
-  - "../../lib/genero-conf/post-provisioning/dotfiles.sh"
-  - "../../lib/genero-conf/post-provisioning/drupal.sh"
+  - "../../../../lib/genero-conf/post-provisioning/dotfiles.sh"
+  - "../../../../lib/genero-conf/post-provisioning/drupal.sh"
   # - "../examples/scripts/configure-solr.sh"
 
 # MySQL Configuration.

@@ -13,6 +13,18 @@
         {
             "type": "composer",
             "url": "https://packagist.drupal-composer.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "oxyc/drupal-vm",
+                "version": "2.5.1",
+                "source": {
+                    "url": "https://github.com/oxyc/drupal-vm.git",
+                    "type": "git",
+                    "reference": "origin/testing-decoupled"
+                }
+            }
         }
     ],
     "require": {
@@ -33,6 +45,7 @@
         "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
         "mikey179/vfsStream": "~1.2",
         "phpunit/phpunit": "~4.8",
+        "oxyc/drupal-vm": "~2.5",
         "symfony/css-selector": "2.7.*"
     },
     "conflict": {
