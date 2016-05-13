@@ -1,0 +1,8 @@
+---
+# If you need to run multiple instances of Drupal VM, set a unique hostname,
+# machine name, and IP address for each instance.
+vagrant_hostname: d8-decoupled-drupalvm.dev
+vagrant_machine_name: d8_decoupled_drupalvm
+vagrant_ip: 192.168.21.88
+
+drupal_site_name: "Decoupled Drupal VM"

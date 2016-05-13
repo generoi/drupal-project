@@ -5,9 +5,9 @@ production_host: <example-project>.fi
 production_user: deploy
 production_deploy_path: /var/www/drupal
 
-development_uri: <example-project>.dev
+development_uri: d8-decoupled-drupalvm.dev
 development_root: /var/www/drupal/web
-development_host: <example-project>.dev
+development_host: d8-decoupled-drupalvm.dev
 development_user: vagrant
 
 staging_uri: <example-project>.staging.minasanor.genero.fi
