@@ -45,7 +45,7 @@ install_site: true
 # Settings for building a Drupal site from a makefile (if 'build_makefile:'
 # is 'true').
 drupal_major_version: 8
-drupal_core_path: "/var/www/drupalvm/web"
+drupal_core_path: "/var/www/drupal/web"
 drupal_domain: "{{ vagrant_hostname }}"
 drupal_site_name: "Drupal"
 drupal_install_profile: standard
@@ -95,3 +95,4 @@ installed_extras:
 # the `provisioning/playbook.yml` file.
 post_provision_scripts:
   - "{{ config_dir }}/../lib/genero-conf/post-provisioning/dotfiles.sh"
+  - "{{ config_dir }}/../lib/genero-conf/post-provisioning/drupal.sh"

@@ -52,9 +52,10 @@ the [Documentation on drupal.org](https://www.drupal.org/node/2471553).
     # You need to manually setup the remote environment hosts in:
     # - `config/environments.yml`
     ```
-5. Setup the ENV variables (pre-configured for the VM) `cp .env.example .env`
-6. Configure the correct build tasks, application name, and repo path in `package.json`.
-7. Setup the new remote git repository
+5. Add a unique hash salt in the `.env.example`.
+6. Prepare your own ENV variables (pre-configured for the VM) `cp .env.example .env`
+7. Configure the correct build tasks, application name, and repo path in `package.json`.
+8. Setup the new remote git repository
 
     ```sh
     # Remove the existing master branch
@@ -73,7 +74,7 @@ the [Documentation on drupal.org](https://www.drupal.org/node/2471553).
     git push -u origin master
     ```
 
-8. Setup the VM
+9. Setup the VM
 
     ```sh
     # Change the VM IP to something unique
