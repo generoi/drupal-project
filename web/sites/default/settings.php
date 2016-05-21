@@ -317,7 +317,7 @@ $settings['install_profile'] = 'standard';
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = env('HASH_SALT') ?: '';
+$settings['hash_salt'] = env('HASH_SALT') ?: file_get_contents($root_dir . '/config/salt.txt');
 
 /**
  * Deployment identifier.

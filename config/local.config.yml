@@ -20,7 +20,7 @@ vagrant_synced_folders:
     id: drupal
     type: rsync
     create: true
-    excluded_paths: ['.git/', '.tmp/', 'node_modules/', 'sites/default/files/', 'config/drupal']
+    excluded_paths: ['.git/', '.tmp/', 'node_modules/', 'sites/default/files/', 'config/drupal', 'config/salt.txt']
     options_override:
       rsync__chown: false
       rsync__verbose: true
