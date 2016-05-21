@@ -81,9 +81,9 @@ installed_extras:
   - mailhog
   - memcached
   # - newrelic
-  # - nodejs
+  - nodejs
   - pimpmylog
-  # - redis
+  - redis
   # - ruby
   # - selenium
   # - solr
