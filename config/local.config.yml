@@ -48,7 +48,7 @@ drupal_major_version: 8
 drupal_core_path: "/var/www/drupal/web"
 drupal_domain: "{{ vagrant_hostname }}"
 drupal_site_name: "Drupal"
-drupal_install_profile: standard
+drupal_install_profile: lightning
 drupal_enable_modules: [ 'devel' ]
 drupal_account_name: admin
 drupal_account_pass: admin

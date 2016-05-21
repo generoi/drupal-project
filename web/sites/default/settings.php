@@ -298,7 +298,7 @@ $config_directories = array(
  *
  * @see install_select_profile()
  */
-$settings['install_profile'] = 'standard';
+$settings['install_profile'] = 'lightning';
 
 /**
  * Salt for one-time login links, cancel links, form tokens, etc.
