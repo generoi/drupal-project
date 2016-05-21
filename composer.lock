@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c437f80e656987c60478e2dcf75d523b",
-    "content-hash": "bd49a2a9bc48d2909efaf075b3b5cf7d",
+    "hash": "c254b73b09680695de7dc21db6416fc4",
+    "content-hash": "75d4859fa35d70b2d0a37f6316bceeeb",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -836,6 +836,44 @@
             "time": "2016-04-20 18:04:46"
         },
         {
+            "name": "drupal/admin_toolbar",
+            "version": "dev-8.x-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/admin_toolbar.git",
+                "reference": "3993f41a4a1821c58d3b6572f48f32a6ac4c2a8e"
+            },
+            "require": {
+                "drupal/core": "8.*",
+                "drupal/toolbar": "8.*"
+            },
+            "replace": {
+                "drupal/admin_toolbar_tools": "self.version"
+            },
+            "suggest": {
+                "drupal/core": "Required by drupal/admin_toolbar_tools"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-1.x": "8.1.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Anis Taktak",
+                    "homepage": "https://www.drupal.org/u/matio89"
+                }
+            ],
+            "description": "Provides a drop-down menu interface to the core Drupal Toolbar.",
+            "homepage": "http://drupal.org/project/admin_toolbar",
+            "time": "2016-05-04 14:43:14"
+        },
+        {
             "name": "drupal/console",
             "version": "0.11.3",
             "source": {
@@ -1159,6 +1197,34 @@
             "description": "Site security and configuration review module.",
             "homepage": "https://www.drupal.org/project/security_review",
             "time": "2016-01-26 14:13:03"
+        },
+        {
+            "name": "drupal/xhprof",
+            "version": "dev-8.x-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/XHProf.git",
+                "reference": "2d6edd1d274e8bef66b2710a68202b791322934b"
+            },
+            "require": {
+                "drupal/core": "8.*"
+            },
+            "replace": {
+                "drupal/xhprof": "self.version"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-1.x": "8.1.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Provides code profiling with XHProf integration.",
+            "homepage": "https://www.drupal.org/project/XHProf",
+            "time": "2015-11-22 15:55:48"
         },
         {
             "name": "drush/drush",
@@ -6044,6 +6110,7 @@
         "cweagans/composer-patches": 20,
         "drupal-composer/drupal-security-advisories": 20,
         "roave/security-advisories": 20,
+        "drupal/admin_toolbar": 20,
         "jcalderonzumba/gastonjs": 20
     },
     "prefer-stable": true,

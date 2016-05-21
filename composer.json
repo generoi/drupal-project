@@ -27,7 +27,9 @@
         "drupal/devel": "8.*",
         "drupal-composer/drupal-security-advisories": "8.0.x-dev",
         "roave/security-advisories": "dev-master",
-        "drupal/security_review": "8.*"
+        "drupal/security_review": "8.*",
+        "drupal/admin_toolbar": "dev-8.x-1.x",
+        "drupal/xhprof": "~8.1"
     },
     "require-dev": {
         "behat/mink": "~1.6",
