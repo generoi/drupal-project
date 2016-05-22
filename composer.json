@@ -48,18 +48,21 @@
     "prefer-stable": true,
     "autoload": {
         "classmap": [
-            "scripts/composer/ScriptHandler.php"
+            "scripts/composer/ScriptHandler.php",
+            "scripts/composer/GeneroScriptHandler.php"
         ]
     },
     "scripts": {
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "post-install-cmd": [
             "DrupalProject\\composer\\ScriptHandler::buildScaffold",
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "GeneroDrupalProject\\composer\\GeneroScriptHandler::vagrantRsync"
         ],
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::buildScaffold",
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "GeneroDrupalProject\\composer\\GeneroScriptHandler::vagrantRsync"
         ]
     },
     "extra": {
