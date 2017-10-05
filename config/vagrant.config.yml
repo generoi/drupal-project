@@ -1,0 +1,42 @@
+---
+# Site specific overrides.
+
+vagrant_hostname: <example-project>.dev
+vagrant_machine_name: <example-project>
+# @note: this should be unique per project.
+vagrant_ip: 192.168.87.87
+
+# If you want to use NFS instead (two-way sync) create a local.config.yml file
+# where you override the vagrant_synced_folders variable with this value. This
+# file is not tracked in git so the change would be for you alone.
+#
+# vagrant_synced_folders:
+#   - local_path: .
+#     destination: /var/www/wordpress
+#     type: nfs
+#     create: true
+#
+vagrant_synced_folders:
+  - local_path: .
+    destination: /var/www/drupal
+    id: drupal
+    type: rsync
+    create: true
+    excluded_paths: ['.git/', '.tmp/', 'node_modules/', 'sites/default/files/', 'config/drupal', 'config/salt.txt']
+    options_override:
+      rsync__chown: false
+      rsync__verbose: true
+      rsync__args: [
+        "--verbose", "--archive", "--delete",
+        "--owner", "--group", "--usermap=*:vagrant", "--groupmap=*:www-data,*:apache",
+      ]
+
+# If you want to adjust this, create a local.config.yml file where you override
+# the value. This file is not tracked in git.
+vagrant_memory: 1024
+
+# PHP Configuration. Currently-supported versions: 5.6, 7.0, 7.1
+# php_version: "5.6"
+php_xdebug_idekey: sublime.xdebug
+# XDebug configuration. Disable for better performance.
+php_xdebug_default_enable: 1

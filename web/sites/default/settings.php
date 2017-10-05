@@ -747,16 +747,6 @@ foreach (array('production_uri', 'staging_uri', 'development_uri') as $key) {
 }
 
 /**
- * Set up our global environment constant and load its config first
- * Default: development
- */
-define('DRUPAL_ENV', env('DRUPAL_ENV') ?: 'development');
-$env_config = $root_dir . '/config/environments/' . DRUPAL_ENV . '.php';
-if (file_exists($env_config)) {
-  include $env_config;
-}
-
-/**
  * Load local development override configuration, if available.
  *
  * Use settings.local.php to override variables on secondary (staging,
